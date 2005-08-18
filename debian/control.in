@@ -1,0 +1,13 @@
+Source: kanotix-screenres
+Section: x11
+Priority: optional
+Maintainer: Stefan Lippers-Hollmann <s.l-h@gmx.de>
+Build-Depends-Indep: @cdbs@
+Standards-Version: 3.6.2
+
+Package: kanotix-screenres
+Architecture: all
+Depends: bash (>= 2.05), perl, kanotix-su
+Suggests: kdialog
+Description: change X11 resolution
+ CLI and kdialog based tools to change the X11 screen resolution/ refresh rate.
