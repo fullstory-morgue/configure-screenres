@@ -1,0 +1,222 @@
+#!/bin/bash
+# Joachim Geserick 21.07.2005
+# In order from master Kano Joerg Schirottke
+# This was his idea
+# sshvs "Screen Size Horizontal Vertical Sync"
+
+# 2005-08-18 extensively modified by Stefan Lippers-Hollman <s.l-h@gmx.de>
+
+
+MENUGEOMETRY="250x250+500+250"
+ICON="randr"
+PROGRAM="sshvs"
+X_CONF="/etc/X11/XF86Config-4"
+if type -p Xorg &>/dev/null; then
+	[ -e /etc/X11/xorg.conf ] && X_CONF="/etc/X11/xorg.conf"
+fi
+X_CONF="/tmp/xorg.conf"
+atime=$(date +%d.%m.%y-%H:%M)
+
+FIXRES=$(type -p fix-res)	|| FIXRES="/usr/sbin/fix-res"
+KANOTIXSU=$(type -p kanotix-su)	|| KANOTIXSU="/usr/bin/kanotix-su"
+KDIALOG=$(type -p kdialog)	|| KDIALOG="/usr/bin/kdialog"
+PERL=$(type -p perl)		|| PERL="/usr/bin/perl"
+
+for i in "$FIXRES" "$KANOTIXSU" "$KDIALOG" "$PERL"; do
+	if [ ! -x "$i" ]; then
+		echo "$i: missing, terminate abnormally."
+		exit 999
+	fi
+done
+
+if [ "$UID" -ne 0 ]; then
+	[ -x "$KANOTIXSU" ] && exec "$KANOTIXSU" "$0" "$@"
+	
+	echo Error: You must be root to run this script!
+	exit 1
+fi
+
+bailout() {
+	exit 1
+}
+
+exitus() {
+	#echo "Have fun."
+	exit 0
+}
+
+menu()
+{
+	choice=$("$KDIALOG" --icon "$ICON" --geometry "$MENUGEOMETRY" --caption "$PROGRAM" \
+		--menu "Display Settings" \
+		"info"		"Info " \
+		"scsize"	"Screen Size" \
+		"horivertsync"	"Scanning Frequenz" \
+		"noml"		"NOML (delete all Modelines)" \
+		"about"		"About" \
+		"exitus"	"Exit")
+	
+	case "$?" in
+		0)
+			cp "$X_CONF" "$X_CONF-$atime.save"
+			"$choice"
+			;;
+		1)
+			bailout
+			;;
+	esac
+}
+
+scsize() {
+	xss2=$("$KDIALOG" --icon "$ICON" --geometry "250x100+500+250" --caption "$PROGRAM" \
+		--combobox "Set Screen Size" \
+		"640x480" \
+		"800x600" \
+		"1024x768" \
+		"1152x864" \
+		"1280x1024" \
+		"1400x1050" \
+		"1600x1200")
+
+	if [ $? = 0 ]; then
+		"$KDIALOG" --icon $ICON --title "$PROGRAM" --warningyesno "Set screen-size at $xss2?"
+
+		if [ "$?" = 0 ]; then
+			"$FIXRES" "$xss2"
+		fi
+	fi
+
+	menu
+}
+
+noml() {
+	"$KDIALOG" --icon "$ICON" --title "$PROGRAM" --warningyesno "Delete all Modelines?"
+
+	if [ $? = 0 ]; then
+		"$PERL" -pi -e 's/(Mode.ine.*\n)/#\1/' "$X_CONF"
+	fi
+
+	menu
+}
+
+horivertsync() {
+	HORIZSYNC=$("$KDIALOG" --icon "$ICON" --caption "$PROGRAM" --inputbox "Horizontal Frequenz" "30 - 65")
+	VERTREFRESH=$("$KDIALOG" --icon "$ICON" --caption "$PROGRAM" --inputbox "Vertical Frequenz" "50 - 60")
+
+	"$KDIALOG" --icon $ICON --title "$PROGRAM" --warningyesno "Write New Horizontal Frequenz: $HORIZSYNC and New Vertical Frequenz: $VERTREFRESH?"
+
+	if [ $? = 0 ] ; then
+		"$PERL" -pi -e "s/^(\s*HorizSync).*/\1\t$HORIZSYNC/" "$X_CONF"
+		"$PERL" -pi -e "s/^(\s*VertRefresh).*/\1\t$VERTREFRESH/" "$X_CONF"
+	else 
+		echo stop
+	fi
+
+	menu
+}
+
+fix-res() {
+	xssyes="${1}"
+	MODE=""
+	MODE_NUM=7
+	MODE_X[1]=640
+	MODE_Y[1]=480
+	MODE_X[2]=800
+	MODE_Y[2]=600
+	MODE_X[3]=1024
+	MODE_Y[3]=768
+	MODE_X[4]=1152
+	MODE_Y[4]=864
+	MODE_X[5]=1280
+	MODE_Y[5]=1024
+	MODE_X[6]=1400
+	MODE_Y[6]=1050
+	MODE_X[7]=1600
+	MODE_Y[7]=1200
+
+	if [ "$xssyes" != "" ]; then
+		X=1024
+		Y=768
+
+		if echo "$xssyes"|grep -q '^[0-9]\{3,4\}*x[0-9]\{3,4\}*$'; then
+			X=$(echo "$xssyes"|cut -f1 -dx)
+			Y=$(echo "$xssyes"|cut -f2 -dx)
+		fi
+
+		MODE_MAX=0
+
+		for i in $(seq $MODE_NUM); do
+			[[ ${MODE_X[$i]} -le $X && ${MODE_Y[$i]} -le $Y && ${MODE_X[$i]} != $X && ${MODE_Y[$i]} != $Y ]] && MODE_MAX="$i"
+		done
+
+		MODE_MIN=0
+
+		for i in $(seq $MODE_MAX -1 1); do
+			[[ ${MODE_X[$i]} -le $X && ${MODE_Y[$i]} -le $Y && ${MODE_X[$i]} != $X && ${MODE_Y[$i]} != $Y ]] && MODE_MIN="$i"
+		done
+
+		MODE="\"${X}x${Y}\""
+
+		if [ $MODE_MIN -gt 0 ]; then 
+			for i in $(seq $MODE_MAX -1 $MODE_MIN); do
+				MODE="$MODE \"${MODE_X[$i]}x${MODE_Y[$i]}\""
+			done
+		fi
+	else
+		MODE="\"1024x768\" \"800x600\" \"640x480\""
+	fi
+
+	"$PERL" -pi -e "s/(Modes).*/\1\t$MODE/" "$X_CONF"
+	"$KDIALOG" --icon "$ICON" --title "$PROGRAM" --msgbox "New Modes: $MODE"
+
+	menu
+}
+
+info()
+{
+	"$KDIALOG" --icon "$ICON" --title "$PROGRAM" --msgbox "Before you do anything, save settings ($X_CONF). After the settings you must restart the X-Server.
+		The original-script is fix-res from Master Kano
+		see http://forum.kanotix.net/search.php.
+		WARNING: this GUI is not save for dual head setups."
+	
+	menu
+}
+
+about()
+{
+	ENABOUT="is licensed under the GPL
+		Author: Joachim Geserick
+		The script is meant to be 'experimental', I dont give any warranty!
+		Any use of the script is at your own risk!
+		For further information have a look at my website.
+		www.jgese.de
+		NOTE: this version of $PROGRAM is an inofficial (modified) release of $PROGRAM \
+		and thus may have bugs that are not present in the original version. \
+		Please send bug reports and support requests to the Kanotix project.
+		The original author should not be bothered with problems of this version."
+	DEABOUT="unterliegt der GPL
+		Autor: Joachim Geserick
+		Das Script ist experimentell, ich übernehme keinerlei Garantie!
+		Das Verwenden geschieht auf eigene Verantwortung!
+		Mehr Info's gibts auf meiner Webseite.
+		www.jgese.de
+		Hinweis: Diese Version von $PROGRAM ist ein inoffizielles (modifiziertes) \
+		Release von $PROGRAM und kann demzufolge Fehler aufweisen die nicht in der \
+		offiziellen Version auftreten. Bitte senden Sie Bugreports und Supportrequests \
+		an das Kanotix Projekt.
+		Der ursprüngliche Autor sollte nicht mit Problemen \
+		dieser Version belästigt werden."
+	
+	case "$LANGUAGE" in
+		de*|at*|ch*)
+			"$KDIALOG" --icon "$ICON" --title "$PROGRAM" --msgbox "$PROGRAM $DEABOUT"
+			;;
+		*)
+			"$KDIALOG" --icon "$ICON" --title "$PROGRAM" --msgbox "$PROGRAM $ENABOUT"
+			;;
+	esac
+
+	menu
+}
+
+menu
