@@ -1,3 +1,10 @@
+kanotix-screenres (0.2) unstable; urgency=low
+
+  * merge sshvs and fix-res.
+  * fix fix-res().
+
+ -- Stefan Lippers-Hollmann <s.l-h@gmx.de>  Tue, 23 Aug 2005 10:55:36 +0200
+
 kanotix-screenres (0.1) unstable; urgency=low
 
   * Initial release.
