@@ -4,25 +4,25 @@
 # This was his idea
 # sshvs "Screen Size Horizontal Vertical Sync"
 
+# fix-res() is copyrighted by Jörg Schirottke <master@kanotix.com>
 # 2005-08-18 extensively modified by Stefan Lippers-Hollman <s.l-h@gmx.de>
+# licensed under the GPL
 
 
 MENUGEOMETRY="250x250+500+250"
 ICON="randr"
-PROGRAM="sshvs"
+PROGRAM="fix-res"
 X_CONF="/etc/X11/XF86Config-4"
 if type -p Xorg &>/dev/null; then
 	[ -e /etc/X11/xorg.conf ] && X_CONF="/etc/X11/xorg.conf"
 fi
-X_CONF="/tmp/xorg.conf"
-atime=$(date +%d.%m.%y-%H:%M)
+ATIME=$(date +%d.%m.%y-%H:%M)
 
-FIXRES=$(type -p fix-res)	|| FIXRES="/usr/sbin/fix-res"
 KANOTIXSU=$(type -p kanotix-su)	|| KANOTIXSU="/usr/bin/kanotix-su"
 KDIALOG=$(type -p kdialog)	|| KDIALOG="/usr/bin/kdialog"
 PERL=$(type -p perl)		|| PERL="/usr/bin/perl"
 
-for i in "$FIXRES" "$KANOTIXSU" "$KDIALOG" "$PERL"; do
+for i in "$KANOTIXSU" "$KDIALOG" "$PERL"; do
 	if [ ! -x "$i" ]; then
 		echo "$i: missing, terminate abnormally."
 		exit 999
@@ -45,8 +45,7 @@ exitus() {
 	exit 0
 }
 
-menu()
-{
+menu() {
 	choice=$("$KDIALOG" --icon "$ICON" --geometry "$MENUGEOMETRY" --caption "$PROGRAM" \
 		--menu "Display Settings" \
 		"info"		"Info " \
@@ -58,7 +57,7 @@ menu()
 	
 	case "$?" in
 		0)
-			cp "$X_CONF" "$X_CONF-$atime.save"
+			cp "$X_CONF" "$X_CONF-$ATIME.save"
 			"$choice"
 			;;
 		1)
@@ -82,7 +81,7 @@ scsize() {
 		"$KDIALOG" --icon $ICON --title "$PROGRAM" --warningyesno "Set screen-size at $xss2?"
 
 		if [ "$?" = 0 ]; then
-			"$FIXRES" "$xss2"
+			fix-res "$xss2"
 		fi
 	fi
 
@@ -101,11 +100,11 @@ noml() {
 
 horivertsync() {
 	HORIZSYNC=$("$KDIALOG" --icon "$ICON" --caption "$PROGRAM" --inputbox "Horizontal Frequenz" "30 - 65")
-	VERTREFRESH=$("$KDIALOG" --icon "$ICON" --caption "$PROGRAM" --inputbox "Vertical Frequenz" "50 - 60")
+	VERTREFRESH=$("$KDIALOG" --icon "$ICON" --caption "$PROGRAM" --inputbox "Vertical Frequenz" "50 - 75")
 
 	"$KDIALOG" --icon $ICON --title "$PROGRAM" --warningyesno "Write New Horizontal Frequenz: $HORIZSYNC and New Vertical Frequenz: $VERTREFRESH?"
 
-	if [ $? = 0 ] ; then
+	if [ "$?" = 0 ] ; then
 		"$PERL" -pi -e "s/^(\s*HorizSync).*/\1\t$HORIZSYNC/" "$X_CONF"
 		"$PERL" -pi -e "s/^(\s*VertRefresh).*/\1\t$VERTREFRESH/" "$X_CONF"
 	else 
@@ -166,10 +165,13 @@ fix-res() {
 		MODE="\"1024x768\" \"800x600\" \"640x480\""
 	fi
 
-	"$PERL" -pi -e "s/(Modes).*/\1\t$MODE/" "$X_CONF"
-	"$KDIALOG" --icon "$ICON" --title "$PROGRAM" --msgbox "New Modes: $MODE"
-
-	menu
+	"$PERL" -pi -e "s/(^\s*Modes).*/\1 $MODE/" "$X_CONF"
+	if [ -n "$DISPLAY" ] && [ ! "$2" == "--tty" ]; then
+		"$KDIALOG" --icon "$ICON" --title "$PROGRAM" --msgbox "New Modes: $MODE"
+		menu
+	else
+		echo "New Modes: $MODE"
+	fi
 }
 
 info()
@@ -184,39 +186,40 @@ info()
 
 about()
 {
-	ENABOUT="is licensed under the GPL
-		Author: Joachim Geserick
-		The script is meant to be 'experimental', I dont give any warranty!
+	ENABOUT="$PROGRAM is licensed under the GPL
+		Authors:\nJörg Schirottke\nJoachim Geserick\nStefan Lippers-Hollmann
+		The script is meant to be 'experimental', no warranties implied!
 		Any use of the script is at your own risk!
-		For further information have a look at my website.
-		www.jgese.de
-		NOTE: this version of $PROGRAM is an inofficial (modified) release of $PROGRAM \
-		and thus may have bugs that are not present in the original version. \
-		Please send bug reports and support requests to the Kanotix project.
+		NOTE: this version of $PROGRAM is an inofficial (modified) release of sshvs \
+		(www.jgese.de) and thus may have bugs that are not present in the original \
+		version. Please send bug reports and support requests to the Kanotix project.
 		The original author should not be bothered with problems of this version."
-	DEABOUT="unterliegt der GPL
-		Autor: Joachim Geserick
-		Das Script ist experimentell, ich übernehme keinerlei Garantie!
+	DEABOUT="$PROGRAM unterliegt der GPL
+		Autoren:\nJörg Schirottke\nJoachim Geserick\nStefan Lippers-Hollmann
+		Das Script ist experimentell, wir übernehmen keinerlei Garantie!
 		Das Verwenden geschieht auf eigene Verantwortung!
-		Mehr Info's gibts auf meiner Webseite.
-		www.jgese.de
 		Hinweis: Diese Version von $PROGRAM ist ein inoffizielles (modifiziertes) \
-		Release von $PROGRAM und kann demzufolge Fehler aufweisen die nicht in der \
-		offiziellen Version auftreten. Bitte senden Sie Bugreports und Supportrequests \
-		an das Kanotix Projekt.
+		Release von sshvs (www.jgese.de) und kann demzufolge Fehler aufweisen die \
+		nicht in der offiziellen Version auftreten. Bitte senden Sie Bugreports und \
+		Supportrequests an das Kanotix Projekt.
 		Der ursprüngliche Autor sollte nicht mit Problemen \
 		dieser Version belästigt werden."
 	
 	case "$LANGUAGE" in
 		de*|at*|ch*)
-			"$KDIALOG" --icon "$ICON" --title "$PROGRAM" --msgbox "$PROGRAM $DEABOUT"
+			"$KDIALOG" --icon "$ICON" --title "$PROGRAM" --msgbox "$DEABOUT"
 			;;
 		*)
-			"$KDIALOG" --icon "$ICON" --title "$PROGRAM" --msgbox "$PROGRAM $ENABOUT"
+			"$KDIALOG" --icon "$ICON" --title "$PROGRAM" --msgbox "$ENABOUT"
 			;;
 	esac
 
 	menu
 }
 
-menu
+if [ -n "$DISPLAY" ] && [ "$1" == "" ]; then
+	menu
+else
+	fix-res "$1" --tty
+fi
+
