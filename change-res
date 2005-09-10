@@ -22,6 +22,7 @@ ATIME=$(date +%d.%m.%y-%H:%M)
 KANOTIXSU=$(type -p kanotix-su)	|| KANOTIXSU="/usr/bin/kanotix-su"
 KDIALOG=$(type -p kdialog)	|| KDIALOG="/usr/bin/kdialog"
 PERL=$(type -p perl)		|| PERL="/usr/bin/perl"
+FIXRES=$(type -p fix-res)	|| FIXRES="/usr/sbin/fix-res"
 
 KMENU="$KDIALOG --icon $ICON --geometry $MENUGEOMETRY --caption $PROGRAM --menu"
 KCOMBOBOX="$KDIALOG --icon $ICON --geometry $MENUGEOMETRY2 --caption $PROGRAM --combobox"
@@ -31,7 +32,7 @@ KMSGBOX="$KDIALOG --icon $ICON --title $PROGRAM --msgbox"
 KYESNO="$KDIALOG --icon $ICON --title $PROGRAM --yesno"
 
 
-for i in "$KANOTIXSU" "$KDIALOG" "$PERL"; do
+for i in "$KANOTIXSU" "$KDIALOG" "$PERL" "$FIXRES"; do
 	if [ ! -x "$i" ]; then
 		echo "$i: missing, terminate abnormally."
 		exit 999
@@ -88,7 +89,7 @@ scsize() {
 		$KWARNINGYESNO "Set screen-size at $xss2?"
 
 		if [ "$?" = 0 ]; then
-			fix-res "$xss2"
+			$KMSGBOX $(fix-res "$xss2")
 		fi
 	fi
 
@@ -186,9 +187,5 @@ about()
 	menu
 }
 
-if [ -n "$DISPLAY" ] && [ "$1" == "" ]; then
-	menu
-else
-	fix-res "$1" --tty
-fi
+menu
 

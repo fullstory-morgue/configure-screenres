@@ -1,1 +1,4 @@
-fix-res	usr/sbin/
+fix-res		usr/sbin/
+change-res	usr/sbin/
+icons		usr/share/
+*.desktop	usr/share/applnk/Kanotix/Utilities/
