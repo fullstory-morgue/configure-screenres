@@ -1,0 +1,6 @@
+[Desktop Entry]
+Exec=/usr/sbin/change-res
+Icon=change-res
+Name[de]=Bildschirmauflösung ändern (change-res)
+Name=Change screen resolution (change-res)
+Type=Application
