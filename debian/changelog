@@ -6,8 +6,9 @@ kanotix-screenres (0.3) UNRELEASED; urgency=low
   * add TFT detection from Joachim Geserick.
   * fix TFTs to 60 Hz.
   * add icon and XDG entry.
+  * add /usr/sbin to internal PATH definition.
 
- -- Stefan Lippers-Hollmann <s.l-h@gmx.de>  Sat, 10 Sep 2005 13:43:07 +0200
+ -- Stefan Lippers-Hollmann <s.l-h@gmx.de>  Sat, 10 Sep 2005 13:57:25 +0200
 
 kanotix-screenres (0.2) unstable; urgency=low
 

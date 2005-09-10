@@ -70,7 +70,7 @@ else
 	MODE="\"1024x768\" \"800x600\" \"640x480\""
 fi
 
-perl -pi -e "s/(Modes).*/\1 $MODE/" "/etc/X11/$X_CONF"
+"$PERL" -pi -e "s/(Modes).*/\1 $MODE/" "$X_CONF"
 
 echo "New Modes: $MODE"
 
