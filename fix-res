@@ -72,5 +72,5 @@ fi
 
 perl -pi -e "s/(Modes).*/\1 $MODE/" "/etc/X11/$X_CONF"
 
-echo New Modes: "$MODE"
+echo "New Modes: $MODE"
 
