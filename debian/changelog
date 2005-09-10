@@ -1,8 +1,11 @@
 kanotix-screenres (0.3) UNRELEASED; urgency=low
 
   * NOT RELEASED YET
+  * move fix-res() to external script /usr/sbin/fix-res again.
+  * BROKEN
+  * add TFT detection from Joachim Geserick.
 
- -- Stefan Lippers-Hollmann <s.l-h@gmx.de>  Tue, 23 Aug 2005 10:58:12 +0200
+ -- Stefan Lippers-Hollmann <s.l-h@gmx.de>  Sat, 10 Sep 2005 12:41:25 +0200
 
 kanotix-screenres (0.2) unstable; urgency=low
 

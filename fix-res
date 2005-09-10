@@ -1,5 +1,5 @@
 #!/bin/bash
-# Joachim Geserick 21.07.2005
+# Joachim Geserick
 # In order from master Kano Joerg Schirottke
 # This was his idea
 # sshvs "Screen Size Horizontal Vertical Sync"
@@ -10,8 +10,9 @@
 
 
 MENUGEOMETRY="250x250+500+250"
+MENUGEOMETRY2="250x100+500+250"
 ICON="randr"
-PROGRAM="fix-res"
+PROGRAM="change-res"
 X_CONF="/etc/X11/XF86Config-4"
 if type -p Xorg &>/dev/null; then
 	[ -e /etc/X11/xorg.conf ] && X_CONF="/etc/X11/xorg.conf"
@@ -21,6 +22,14 @@ ATIME=$(date +%d.%m.%y-%H:%M)
 KANOTIXSU=$(type -p kanotix-su)	|| KANOTIXSU="/usr/bin/kanotix-su"
 KDIALOG=$(type -p kdialog)	|| KDIALOG="/usr/bin/kdialog"
 PERL=$(type -p perl)		|| PERL="/usr/bin/perl"
+
+KMENU="$KDIALOG --icon $ICON --geometry $MENUGEOMETRY --caption $PROGRAM --menu"
+KCOMBOBOX="$KDIALOG --icon $ICON --geometry $MENUGEOMETRY2 --caption $PROGRAM --combobox"
+KWARNINGYESNO="$KDIALOG --icon $ICON --title $PROGRAM --warningyesno"
+KINPUTBOX="$KDIALOG --caption $PROGRAM --inputbox"
+KMSGBOX="$KDIALOG --icon $ICON --title $PROGRAM --msgbox"
+KYESNO="$KDIALOG --icon $ICON --title $PROGRAM --yesno"
+
 
 for i in "$KANOTIXSU" "$KDIALOG" "$PERL"; do
 	if [ ! -x "$i" ]; then
@@ -46,8 +55,7 @@ exitus() {
 }
 
 menu() {
-	choice=$("$KDIALOG" --icon "$ICON" --geometry "$MENUGEOMETRY" --caption "$PROGRAM" \
-		--menu "Display Settings" \
+	choice=$($KMENU "Display Settings" \
 		"info"		"Info " \
 		"scsize"	"Screen Size" \
 		"horivertsync"	"Scanning Frequenz" \
@@ -67,8 +75,7 @@ menu() {
 }
 
 scsize() {
-	xss2=$("$KDIALOG" --icon "$ICON" --geometry "250x100+500+250" --caption "$PROGRAM" \
-		--combobox "Set Screen Size" \
+	xss2=$($KCOMBOBOX "Set Screen Size" \
 		"640x480" \
 		"800x600" \
 		"1024x768" \
@@ -78,7 +85,7 @@ scsize() {
 		"1600x1200")
 
 	if [ $? = 0 ]; then
-		"$KDIALOG" --icon $ICON --title "$PROGRAM" --warningyesno "Set screen-size at $xss2?"
+		$KWARNINGYESNO "Set screen-size at $xss2?"
 
 		if [ "$?" = 0 ]; then
 			fix-res "$xss2"
@@ -89,7 +96,7 @@ scsize() {
 }
 
 noml() {
-	"$KDIALOG" --icon "$ICON" --title "$PROGRAM" --warningyesno "Delete all Modelines?"
+	$KWARNINGYESNO "Delete all Modelines?"
 
 	if [ $? = 0 ]; then
 		"$PERL" -pi -e 's/(Mode.ine.*\n)/#\1/' "$X_CONF"
@@ -99,10 +106,20 @@ noml() {
 }
 
 horivertsync() {
-	HORIZSYNC=$("$KDIALOG" --icon "$ICON" --caption "$PROGRAM" --inputbox "Horizontal Frequenz" "30 - 65")
-	VERTREFRESH=$("$KDIALOG" --icon "$ICON" --caption "$PROGRAM" --inputbox "Vertical Frequenz" "50 - 75")
+	$KYESNO "It's a \"TFT\" ?"
+	if [ "$?" = 0 ] ; then
+		horivertsync_tft
+		else
+		horivertsync_crt
+	fi
+	menu
+}
 
-	"$KDIALOG" --icon $ICON --title "$PROGRAM" --warningyesno "Write New Horizontal Frequenz: $HORIZSYNC and New Vertical Frequenz: $VERTREFRESH?"
+horivertsync_crt() {
+	HORIZSYNC=$($KINPUTBOX "Horizontal Frequenz" "30 - 65")
+	VERTREFRESH=$($KINPUTBOX "Vertical Frequenz" "50 - 75")
+
+	$KWARNINGYESNO "Write New Horizontal Frequenz: $HORIZSYNC and New Vertical Frequenz: $VERTREFRESH?"
 
 	if [ "$?" = 0 ] ; then
 		"$PERL" -pi -e "s/^(\s*HorizSync).*/\1\t$HORIZSYNC/" "$X_CONF"
@@ -110,73 +127,25 @@ horivertsync() {
 	else 
 		echo stop
 	fi
-
-	menu
 }
 
-fix-res() {
-	xssyes="${1}"
-	MODE=""
-	MODE_NUM=7
-	MODE_X[1]=640
-	MODE_Y[1]=480
-	MODE_X[2]=800
-	MODE_Y[2]=600
-	MODE_X[3]=1024
-	MODE_Y[3]=768
-	MODE_X[4]=1152
-	MODE_Y[4]=864
-	MODE_X[5]=1280
-	MODE_Y[5]=1024
-	MODE_X[6]=1400
-	MODE_Y[6]=1050
-	MODE_X[7]=1600
-	MODE_Y[7]=1200
+horivertsync_tft() {
+	HORIZSYNC=$($KINPUTBOX "Horizontal Frequenz" "31 - 65")
+	VERTREFRESH="50 - 60"
 
-	if [ "$xssyes" != "" ]; then
-		X=1024
-		Y=768
+	$KWARNINGYESNO "Write New Horizontal Frequenz: $HORIZSYNC"
 
-		if echo "$xssyes"|grep -q '^[0-9]\{3,4\}*x[0-9]\{3,4\}*$'; then
-			X=$(echo "$xssyes"|cut -f1 -dx)
-			Y=$(echo "$xssyes"|cut -f2 -dx)
-		fi
-
-		MODE_MAX=0
-
-		for i in $(seq $MODE_NUM); do
-			[[ ${MODE_X[$i]} -le $X && ${MODE_Y[$i]} -le $Y && ${MODE_X[$i]} != $X && ${MODE_Y[$i]} != $Y ]] && MODE_MAX="$i"
-		done
-
-		MODE_MIN=0
-
-		for i in $(seq $MODE_MAX -1 1); do
-			[[ ${MODE_X[$i]} -le $X && ${MODE_Y[$i]} -le $Y && ${MODE_X[$i]} != $X && ${MODE_Y[$i]} != $Y ]] && MODE_MIN="$i"
-		done
-
-		MODE="\"${X}x${Y}\""
-
-		if [ $MODE_MIN -gt 0 ]; then 
-			for i in $(seq $MODE_MAX -1 $MODE_MIN); do
-				MODE="$MODE \"${MODE_X[$i]}x${MODE_Y[$i]}\""
-			done
-		fi
-	else
-		MODE="\"1024x768\" \"800x600\" \"640x480\""
-	fi
-
-	"$PERL" -pi -e "s/(^\s*Modes).*/\1 $MODE/" "$X_CONF"
-	if [ -n "$DISPLAY" ] && [ ! "$2" == "--tty" ]; then
-		"$KDIALOG" --icon "$ICON" --title "$PROGRAM" --msgbox "New Modes: $MODE"
-		menu
-	else
-		echo "New Modes: $MODE"
+	if [ "$?" = 0 ] ; then
+		"$PERL" -pi -e "s/^(\s*HorizSync).*/\1\t$HORIZSYNC/" "$X_CONF"
+		"$PERL" -pi -e "s/^(\s*VertRefresh).*/\1\t$VERTREFRESH/" "$X_CONF"
+	else 
+		echo stop
 	fi
 }
 
 info()
 {
-	"$KDIALOG" --icon "$ICON" --title "$PROGRAM" --msgbox "Before you do anything, save settings ($X_CONF). After the settings you must restart the X-Server.
+	$KMSGBOX "Before you do anything, save settings ($X_CONF). After the settings you must restart the X-Server.
 		The original-script is fix-res from Master Kano
 		see http://forum.kanotix.net/search.php.
 		WARNING: this GUI is not save for dual head setups."
@@ -207,10 +176,10 @@ about()
 	
 	case "$LANGUAGE" in
 		de*|at*|ch*)
-			"$KDIALOG" --icon "$ICON" --title "$PROGRAM" --msgbox "$DEABOUT"
+			$KMSGBOX "$DEABOUT"
 			;;
 		*)
-			"$KDIALOG" --icon "$ICON" --title "$PROGRAM" --msgbox "$ENABOUT"
+			$KMSGBOX "$ENABOUT"
 			;;
 	esac
 
