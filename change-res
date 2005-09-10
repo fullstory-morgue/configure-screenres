@@ -131,7 +131,7 @@ horivertsync_crt() {
 
 horivertsync_tft() {
 	HORIZSYNC=$($KINPUTBOX "Horizontal Frequenz" "31 - 65")
-	VERTREFRESH="50 - 60"
+	VERTREFRESH="60"
 
 	$KWARNINGYESNO "Write New Horizontal Frequenz: $HORIZSYNC"
 

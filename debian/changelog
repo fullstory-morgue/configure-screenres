@@ -1,11 +1,13 @@
 kanotix-screenres (0.3) UNRELEASED; urgency=low
 
   * NOT RELEASED YET
-  * move fix-res() to external script /usr/sbin/fix-res again.
   * BROKEN
+  * move fix-res() to external script /usr/sbin/fix-res again.
+  * change GUI name to changes-res. 
   * add TFT detection from Joachim Geserick.
+  * fix TFTs to 60 Hz.
 
- -- Stefan Lippers-Hollmann <s.l-h@gmx.de>  Sat, 10 Sep 2005 12:41:25 +0200
+ -- Stefan Lippers-Hollmann <s.l-h@gmx.de>  Sat, 10 Sep 2005 12:43:13 +0200
 
 kanotix-screenres (0.2) unstable; urgency=low
 
