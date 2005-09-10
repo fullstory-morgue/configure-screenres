@@ -7,8 +7,9 @@ kanotix-screenres (0.3) UNRELEASED; urgency=low
   * fix TFTs to 60 Hz.
   * add icon and XDG entry.
   * add /usr/sbin to internal PATH definition.
+  * properly quote kdialog.
 
- -- Stefan Lippers-Hollmann <s.l-h@gmx.de>  Sat, 10 Sep 2005 13:57:25 +0200
+ -- Stefan Lippers-Hollmann <s.l-h@gmx.de>  Sat, 10 Sep 2005 14:12:35 +0200
 
 kanotix-screenres (0.2) unstable; urgency=low
 

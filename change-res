@@ -89,7 +89,7 @@ scsize() {
 		$KWARNINGYESNO "Set screen-size at $xss2?"
 
 		if [ "$?" = 0 ]; then
-			$KMSGBOX $(fix-res "$xss2")
+			$KMSGBOX "$(fix-res "$xss2")"
 		fi
 	fi
 
