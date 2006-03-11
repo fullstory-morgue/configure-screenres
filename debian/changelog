@@ -1,8 +1,9 @@
-kanotix-screenres (0.4) UNRELEASED; urgency=low
+kanotix-screenres (0.4) unstable; urgency=low
 
-  * NOT RELEASED YET
+  * remove cdbs auto-update feature.
+  * bump compat level to 5.
 
- -- Stefan Lippers-Hollmann <s.l-h@gmx.de>  Sat, 10 Sep 2005 14:16:08 +0200
+ -- Stefan Lippers-Hollmann <s.l-h@gmx.de>  Sat, 11 Mar 2006 23:38:56 +0100
 
 kanotix-screenres (0.3) unstable; urgency=low
 
