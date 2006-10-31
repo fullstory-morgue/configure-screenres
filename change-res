@@ -4,7 +4,7 @@
 # This was his idea
 # sshvs "Screen Size Horizontal Vertical Sync"
 
-# fix-res() is copyrighted by Jörg Schirottke <master@kanotix.com>
+# fix-res() is copyrighted by JÃ¶rg Schirottke <master@kanotix.com>
 # 2005-08-18 extensively modified by Stefan Lippers-Hollman <s.l-h@gmx.de>
 # licensed under the GPL
 
@@ -157,7 +157,7 @@ info()
 about()
 {
 	ENABOUT="$PROGRAM is licensed under the GPL
-		Authors:\nJörg Schirottke\nJoachim Geserick\nStefan Lippers-Hollmann
+		Authors:\nJÃ¶rg Schirottke\nJoachim Geserick\nStefan Lippers-Hollmann
 		The script is meant to be 'experimental', no warranties implied!
 		Any use of the script is at your own risk!
 		NOTE: this version of $PROGRAM is an inofficial (modified) release of sshvs \
@@ -165,15 +165,15 @@ about()
 		version. Please send bug reports and support requests to the Kanotix project.
 		The original author should not be bothered with problems of this version."
 	DEABOUT="$PROGRAM unterliegt der GPL
-		Autoren:\nJörg Schirottke\nJoachim Geserick\nStefan Lippers-Hollmann
-		Das Script ist experimentell, wir übernehmen keinerlei Garantie!
+		Autoren:\nJÃ¶rg Schirottke\nJoachim Geserick\nStefan Lippers-Hollmann
+		Das Script ist experimentell, wir Ã¼bernehmen keinerlei Garantie!
 		Das Verwenden geschieht auf eigene Verantwortung!
 		Hinweis: Diese Version von $PROGRAM ist ein inoffizielles (modifiziertes) \
 		Release von sshvs (www.jgese.de) und kann demzufolge Fehler aufweisen die \
 		nicht in der offiziellen Version auftreten. Bitte senden Sie Bugreports und \
 		Supportrequests an das Kanotix Projekt.
-		Der ursprüngliche Autor sollte nicht mit Problemen \
-		dieser Version belästigt werden."
+		Der ursprÃ¼ngliche Autor sollte nicht mit Problemen \
+		dieser Version belÃ¤stigt werden."
 	
 	case "$LANGUAGE" in
 		de*|at*|ch*)
