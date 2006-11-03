@@ -13,10 +13,7 @@ MENUGEOMETRY="250x250+500+250"
 MENUGEOMETRY2="250x100+500+250"
 ICON="randr"
 PROGRAM="change-res"
-X_CONF="/etc/X11/XF86Config-4"
-if type -p Xorg &>/dev/null; then
-	[ -e /etc/X11/xorg.conf ] && X_CONF="/etc/X11/xorg.conf"
-fi
+X_CONF="/etc/X11/xorg.conf"
 ATIME=$(date +%d.%m.%y-%H:%M)
 
 KANOTIXSU=$(type -p kanotix-su)	|| KANOTIXSU="/usr/bin/kanotix-su"

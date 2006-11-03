@@ -2,10 +2,7 @@
 # Joerg Schirottke 04.05.2005
 # 2005-08-18 modified by Stefan Lippers-Hollman <s.l-h@gmx.de>
 
-X_CONF="/etc/X11/XF86Config-4"
-if type -p Xorg &>/dev/null; then
-	[ -e /etc/X11/xorg.conf ] && X_CONF="/etc/X11/xorg.conf"
-fi
+X_CONF="/etc/X11/xorg.conf"
 
 PERL=$(type -p perl)		|| PERL="/usr/bin/perl"
 
