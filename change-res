@@ -1,12 +1,8 @@
 #!/bin/bash
-# Joachim Geserick
-# In order from master Kano Joerg Schirottke
-# This was his idea
-# sshvs "Screen Size Horizontal Vertical Sync"
-
-# fix-res() is copyrighted by Jörg Schirottke <master@kanotix.com>
-# 2005-08-18 extensively modified by Stefan Lippers-Hollman <s.l-h@gmx.de>
-# licensed under the GPL
+# (C) 2005 Joachim Geserick
+# (C) 2004-2005 Joerg Schirottke <master@kanotix.com>
+# (C) 2005-2006 Stefan Lippers-Hollman <s.l-h@gmx.de>
+# licensed under the GPL2
 
 PATH="/usr/sbin:$PATH"
 MENUGEOMETRY="250x250+500+250"
@@ -172,7 +168,7 @@ about()
 		Der ursprüngliche Autor sollte nicht mit Problemen \
 		dieser Version belästigt werden."
 	
-	case "$LANGUAGE" in
+	case "$LANG" in
 		de*|at*|ch*)
 			$KMSGBOX "$DEABOUT"
 			;;
