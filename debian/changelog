@@ -1,3 +1,9 @@
+kanotix-screenres (0.6.2) UNRELEASED; urgency=low
+
+  * NOT RELEASED YET
+
+ -- Stefan Lippers-Hollmann <s.l-h@gmx.de>  Thu,  9 Nov 2006 21:07:21 +0100
+
 kanotix-screenres (0.6.1) unstable; urgency=low
 
   * fix i18n handling.
