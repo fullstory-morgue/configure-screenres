@@ -1,6 +1,6 @@
-#!/bin/sh
-# Joerg Schirottke 04.05.2005
-# 2005-08-18 modified by Stefan Lippers-Hollman <s.l-h@gmx.de>
+#!/bin/bash
+# (C) 2005 Joerg Schirottke <master@kanotix.com>
+# (C) 2005-2006 modified by Stefan Lippers-Hollman <s.l-h@gmx.de>
 
 X_CONF="/etc/X11/xorg.conf"
 
