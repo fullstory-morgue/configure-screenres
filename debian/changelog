@@ -1,8 +1,10 @@
-kanotix-screenres (0.6.3) UNRELEASED; urgency=low
+configure-screenres (0.6.3) UNRELEASED; urgency=low
 
   * NOT RELEASED YET
 
- -- Stefan Lippers-Hollmann <s.l-h@gmx.de>  Thu, 16 Nov 2006 14:49:03 +0100
+  * Initial sidux version
+
+ -- Joaquim Boura <x-un-i@sidux.com>  Fri,  1 Dec 2006 23:45:39 +0100
 
 kanotix-screenres (0.6.2) unstable; urgency=low
 

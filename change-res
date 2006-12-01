@@ -12,7 +12,7 @@ PROGRAM="change-res"
 X_CONF="/etc/X11/xorg.conf"
 ATIME=$(date +%d.%m.%y-%H:%M)
 
-KANOTIXSU=$(type -p kanotix-su)	|| KANOTIXSU="/usr/bin/kanotix-su"
+SU_ME=$(type -p su-me)	|| SU_ME="/usr/bin/su-me"
 KDIALOG=$(type -p kdialog)	|| KDIALOG="/usr/bin/kdialog"
 PERL=$(type -p perl)		|| PERL="/usr/bin/perl"
 FIXRES=$(type -p fix-res)	|| FIXRES="/usr/sbin/fix-res"
@@ -25,7 +25,7 @@ KMSGBOX="$KDIALOG --icon $ICON --title $PROGRAM --msgbox"
 KYESNO="$KDIALOG --icon $ICON --title $PROGRAM --yesno"
 
 
-for i in "$KANOTIXSU" "$KDIALOG" "$PERL" "$FIXRES"; do
+for i in "$SU_ME" "$KDIALOG" "$PERL" "$FIXRES"; do
 	if [ ! -x "$i" ]; then
 		echo "$i: missing, terminate abnormally."
 		exit 999
@@ -33,7 +33,7 @@ for i in "$KANOTIXSU" "$KDIALOG" "$PERL" "$FIXRES"; do
 done
 
 if [ "$UID" -ne 0 ]; then
-	[ -x "$KANOTIXSU" ] && exec "$KANOTIXSU" "$0" "$@"
+	[ -x "$SU_ME" ] && exec "$SU_ME" "$0" "$@"
 	
 	echo Error: You must be root to run this script!
 	exit 1

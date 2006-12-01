@@ -1,4 +1,4 @@
 fix-res			usr/sbin/
 change-res		usr/sbin/
 icons			usr/share/
-change-res.desktop	usr/share/applnk/Kanotix/Utilities/
+change-res.desktop	usr/share/applnk/sidux/Utilities/
