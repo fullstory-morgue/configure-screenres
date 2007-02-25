@@ -1,3 +1,9 @@
+configure-screenres (0.6.5) UNRELEASED; urgency=low
+
+  * NOT RELEASED YET
+
+ -- Stefan Lippers-Hollmann <s.l-h@gmx.de>  Sun, 25 Feb 2007 23:39:26 +0100
+
 configure-screenres (0.6.4) unstable; urgency=low
 
   * add high-res wide screens resolutions, thanks to spacepenguin.
