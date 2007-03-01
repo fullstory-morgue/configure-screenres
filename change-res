@@ -1,7 +1,7 @@
 #!/bin/bash
 # (C) 2005 Joachim Geserick
 # (C) 2004-2005 Joerg Schirottke <master@kanotix.com>
-# (C) 2005-2006 Stefan Lippers-Hollman <s.l-h@gmx.de>
+# (C) 2005-2007 Stefan Lippers-Hollman <s.l-h@gmx.de>
 # licensed under the GPL2
 
 PATH="/usr/sbin:$PATH"
@@ -143,8 +143,7 @@ horivertsync_tft() {
 info()
 {
 	$KMSGBOX "Before you do anything, save settings ($X_CONF). After the settings you must restart the X-Server.
-		The original-script is fix-res from Master Kano
-		see http://forum.kanotix.net/search.php.
+		The original fix-res script was written by Jörg Schirottke.
 		WARNING: this GUI is not save for dual head setups."
 	
 	menu
@@ -158,7 +157,7 @@ about()
 		Any use of the script is at your own risk!
 		NOTE: this version of $PROGRAM is an inofficial (modified) release of sshvs \
 		(www.jgese.de) and thus may have bugs that are not present in the original \
-		version. Please send bug reports and support requests to the Kanotix project.
+		version. Please send bug reports and support requests to the sidux project.
 		The original author should not be bothered with problems of this version."
 	DEABOUT="$PROGRAM unterliegt der GPL
 		Autoren:\nJörg Schirottke\nJoachim Geserick\nStefan Lippers-Hollmann
