@@ -1,8 +1,9 @@
-configure-screenres (0.6.5) UNRELEASED; urgency=low
+configure-screenres (0.6.5) unstable; urgency=low
 
-  * NOT RELEASED YET
+  * kanotix-screenres never existed in sidux or debian, don't conflict with
+    it.
 
- -- Stefan Lippers-Hollmann <s.l-h@gmx.de>  Sun, 25 Feb 2007 23:39:26 +0100
+ -- Stefan Lippers-Hollmann <s.l-h@gmx.de>  Thu,  1 Mar 2007 16:45:19 +0100
 
 configure-screenres (0.6.4) unstable; urgency=low
 
