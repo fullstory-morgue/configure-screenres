@@ -1,8 +1,9 @@
 configure-screenres (0.6.6) UNRELEASED; urgency=low
 
   * NOT RELEASED YET
+  * first steps into a standard xdg-menu
 
- -- Stefan Lippers-Hollmann <s.l-h@gmx.de>  Thu,  1 Mar 2007 16:47:24 +0100
+ -- Joaquim Boura <x-un-i@sidux.com>  Sun, 11 Mar 2007 20:42:09 +0100
 
 configure-screenres (0.6.5) unstable; urgency=low
 
