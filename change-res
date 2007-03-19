@@ -59,7 +59,6 @@ menu() {
 	
 	case "$?" in
 		0)
-			cp "$X_CONF" "$X_CONF-$ATIME.save"
 			"$choice"
 			;;
 		1)
@@ -85,6 +84,7 @@ scsize() {
 		$KWARNINGYESNO "Set screen-size at $xss2?"
 
 		if [ "$?" = 0 ]; then
+			cp "$X_CONF" "$X_CONF-$ATIME.save"
 			$KMSGBOX "$(fix-res "$xss2")"
 		fi
 	fi
@@ -96,6 +96,7 @@ noml() {
 	$KWARNINGYESNO "Delete all Modelines?"
 
 	if [ $? = 0 ]; then
+		cp "$X_CONF" "$X_CONF-$ATIME.save"
 		"$PERL" -pi -e 's/(Mode.ine.*\n)/#\1/' "$X_CONF"
 	fi
 
@@ -119,6 +120,7 @@ horivertsync_crt() {
 	$KWARNINGYESNO "Write New Horizontal Frequenz: $HORIZSYNC and New Vertical Frequenz: $VERTREFRESH?"
 
 	if [ "$?" = 0 ] ; then
+		cp "$X_CONF" "$X_CONF-$ATIME.save"
 		"$PERL" -pi -e "s/^(\s*HorizSync).*/\1\t$HORIZSYNC/" "$X_CONF"
 		"$PERL" -pi -e "s/^(\s*VertRefresh).*/\1\t$VERTREFRESH/" "$X_CONF"
 	else 
@@ -133,6 +135,7 @@ horivertsync_tft() {
 	$KWARNINGYESNO "Write New Horizontal Frequenz: $HORIZSYNC"
 
 	if [ "$?" = 0 ] ; then
+		cp "$X_CONF" "$X_CONF-$ATIME.save"
 		"$PERL" -pi -e "s/^(\s*HorizSync).*/\1\t$HORIZSYNC/" "$X_CONF"
 		"$PERL" -pi -e "s/^(\s*VertRefresh).*/\1\t$VERTREFRESH/" "$X_CONF"
 	else 

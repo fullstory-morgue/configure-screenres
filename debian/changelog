@@ -1,8 +1,8 @@
-configure-screenres (0.6.7) UNRELEASED; urgency=low
+configure-screenres (0.6.7) unstable; urgency=low
 
-  * NOT RELEASED YET
+  * only save a backup if needed, thanks to xadras.
 
- -- Stefan Lippers-Hollmann <s.l-h@gmx.de>  Mon, 12 Mar 2007 01:25:27 +0100
+ -- Stefan Lippers-Hollmann <s.l-h@gmx.de>  Mon, 19 Mar 2007 23:55:59 +0100
 
 configure-screenres (0.6.6) unstable; urgency=low
 
