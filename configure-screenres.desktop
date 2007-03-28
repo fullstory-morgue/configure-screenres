@@ -1,8 +1,0 @@
-[Desktop Entry]
-Encoding=UTF-8
-Type=Application
-Categories=System;sidux;
-Exec=/usr/sbin/change-res
-Icon=randr
-Name=Change screen resolution (change-res)
-Name[de]=Bildschirmauflösung ändern (change-res)

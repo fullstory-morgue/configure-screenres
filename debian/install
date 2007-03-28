@@ -1,7 +1,4 @@
 fix-res			usr/sbin/
 change-res		usr/sbin/
-change-res.desktop     usr/share/applnk/sidux/Utilities/
-configure-screenres.desktop usr/share/applications/sidux
-sidux.menu		etc/xdg/menus/applications-merged
-sidux.directory	usr/share/desktop-directories
+change-res.desktop usr/share/applications
 
