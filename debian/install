@@ -1,4 +1,4 @@
 fix-res			usr/sbin/
 change-res		usr/sbin/
-change-res.desktop usr/share/applications
+change-res.desktop	usr/share/applications/
 

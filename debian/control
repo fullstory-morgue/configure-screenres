@@ -7,7 +7,7 @@ Standards-Version: 3.7.2
 
 Package: configure-screenres
 Architecture: all
-Depends: perl, su-me
+Depends: perl, su-me, sidux-xdg
 Suggests: kdialog
 Description: change X11 resolution
  CLI and kdialog based tools to change the X11 screen resolution/ refresh rate.
