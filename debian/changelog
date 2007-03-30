@@ -1,3 +1,9 @@
+configure-screenres (0.6.10) UNRELEASED; urgency=low
+
+  * NOT RELEASED YET
+
+ -- Stefan Lippers-Hollmann <s.l-h@gmx.de>  Sat, 31 Mar 2007 01:46:42 +0200
+
 configure-screenres (0.6.9) unstable; urgency=low
 
   * fix *.desktop location.
