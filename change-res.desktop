@@ -2,7 +2,7 @@
 Encoding=UTF-8
 Type=Application
 Exec=/usr/sbin/change-res
-Icon=randr
+Icon=sidux-screen-res
 Name=Change screen resolution (change-res)
 Name[de]=Bildschirmauflösung ändern (change-res)
 Categories=sidux;Utilities
