@@ -1,8 +1,12 @@
 configure-screenres (0.6.11) UNRELEASED; urgency=low
 
+  [ Stefan Lippers-Hollmann ]
   * NOT RELEASED YET
 
- -- Stefan Lippers-Hollmann <s.l-h@gmx.de>  Mon, 09 Apr 2007 01:20:48 +0200
+  [ Joaquim Boura ]
+  * new icon sidux-screen-res
+
+ -- Joaquim Boura <x-un-i@sidux.com>  Sun, 29 Apr 2007 18:50:13 +0200
 
 configure-screenres (0.6.10) unstable; urgency=low
 
