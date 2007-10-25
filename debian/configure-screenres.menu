@@ -1,6 +1,6 @@
 ?package(configure-screenres): \
 	needs="X11" \
-	section="Apps/System" \
+	section="Applications/System/Administration" \
 	hints="sidux,Config" \
 	title="Change screen resolution" \
 	icon32x32="/usr/share/pixmaps/configure-screenres.xpm" \

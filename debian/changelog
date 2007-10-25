@@ -3,8 +3,9 @@ configure-screenres (0.6.15) UNRELEASED; urgency=low
   * NOT RELEASED YET
   * add VCS control headers.
   * update syntax for Vcs headers in debian/control
+  * Update debian menu section as per new subpolicy.
 
- -- Stefan Lippers-Hollmann <s.l-h@gmx.de>  Sun, 07 Oct 2007 14:39:20 +0200
+ -- Stefan Lippers-Hollmann <s.l-h@gmx.de>  Thu, 25 Oct 2007 22:12:06 +1000
 
 configure-screenres (0.6.14) unstable; urgency=low
 
