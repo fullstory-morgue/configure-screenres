@@ -1,8 +1,13 @@
 configure-screenres (0.6.16) UNRELEASED; urgency=low
 
+  [ Stefan Lippers-Hollmann ]
   * NOT RELEASED YET
 
- -- Stefan Lippers-Hollmann <s.l-h@gmx.de>  Thu, 25 Oct 2007 18:23:37 +0200
+  [ Fabian Wuertz ]
+  * new naming for the x.org backupfile in accord with siduxcc and
+    sidux-binary-gfx
+
+ -- Fabian Wuertz <xadras@sidux.com>  Sat, 27 Oct 2007 01:45:08 +0200
 
 configure-screenres (0.6.15) unstable; urgency=low
 

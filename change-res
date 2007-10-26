@@ -10,7 +10,7 @@ MENUGEOMETRY2="250x100+500+250"
 ICON="randr"
 PROGRAM="change-res"
 X_CONF="/etc/X11/xorg.conf"
-ATIME=$(date +%d.%m.%y-%H:%M)
+ATIME=$(date -u +%Y%m%d%H%M)
 
 SU_ME=$(type -p su-me)	|| SU_ME="/usr/bin/su-me"
 KDIALOG=$(type -p kdialog)	|| KDIALOG="/usr/bin/kdialog"
@@ -84,7 +84,7 @@ scsize() {
 		$KWARNINGYESNO "Set screen-size at $xss2?"
 
 		if [ "$?" = 0 ]; then
-			cp "$X_CONF" "$X_CONF-$ATIME.save"
+			cp "$X_CONF" "$X_CONF.$ATIME"
 			$KMSGBOX "$(fix-res "$xss2")"
 		fi
 	fi
