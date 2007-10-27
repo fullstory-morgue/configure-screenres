@@ -1,9 +1,5 @@
-configure-screenres (0.6.16) UNRELEASED; urgency=low
+configure-screenres (0.6.16) unstable; urgency=low
 
-  [ Stefan Lippers-Hollmann ]
-  * NOT RELEASED YET
-
-  [ Fabian Wuertz ]
   * new naming for the x.org backupfile in accord with siduxcc and
     sidux-binary-gfx
 
