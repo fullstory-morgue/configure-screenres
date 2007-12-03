@@ -1,8 +1,9 @@
 configure-screenres (0.6.17) UNRELEASED; urgency=low
 
   * NOT RELEASED YET
+  * update to Standards-Version 3.7.3, no changes necessary.
 
- -- Stefan Lippers-Hollmann <s.l-h@gmx.de>  Sat, 27 Oct 2007 02:37:44 +0200
+ -- Stefan Lippers-Hollmann <s.l-h@gmx.de>  Mon, 03 Dec 2007 12:46:37 +0100
 
 configure-screenres (0.6.16) unstable; urgency=low
 
