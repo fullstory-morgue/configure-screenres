@@ -5,4 +5,7 @@ Exec=/usr/sbin/change-res
 Icon=sidux-screen-res
 Name=Change screen resolution (change-res)
 Name[de]=Bildschirmauflösung ändern (change-res)
+Name[pt]=Mudar a resolução do monitor
+Name[pt_BR]=Mudar a reolução do ecrã
+Name[ru]=Изменение размера экрана (change-res)
 Categories=sidux;Utilities

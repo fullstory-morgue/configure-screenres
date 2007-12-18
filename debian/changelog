@@ -1,8 +1,12 @@
 configure-screenres (0.6.18) UNRELEASED; urgency=low
 
+  [ Stefan Lippers-Hollmann ]
   * NOT RELEASED YET
 
- -- Stefan Lippers-Hollmann <s.l-h@gmx.de>  Sat, 08 Dec 2007 16:53:12 +0100
+  [ Joaquim Boura ]
+  * Translation thanks to RoEn
+
+ -- Joaquim Boura <x-un-i@sidux.com>  Tue, 18 Dec 2007 13:22:31 +0100
 
 configure-screenres (0.6.17) unstable; urgency=low
 
