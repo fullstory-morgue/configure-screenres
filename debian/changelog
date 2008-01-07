@@ -1,8 +1,9 @@
-configure-screenres (0.6.19) UNRELEASED; urgency=low
+configure-screenres (0.6.19) ORPHANED; urgency=low
 
   * NOT RELEASED YET
+  * ORPHAN PACKAGE, its functionality is provided by siduxcc now.
 
- -- Stefan Lippers-Hollmann <s.l-h@gmx.de>  Wed, 19 Dec 2007 11:14:27 +0100
+ -- Stefan Lippers-Hollmann <s.l-h@gmx.de>  Mon, 07 Jan 2008 19:07:53 +0100
 
 configure-screenres (0.6.18) unstable; urgency=low
 
